@@ -43,4 +43,64 @@ public class GameEngine
             Console.WriteLine("No characters available.");
         }
     }
+    public void AddRoom()
+    {
+        Console.Write("Enter room name: ");
+        var name = Console.ReadLine();
+
+        Console.Write("Enter room description: ");
+        var description = Console.ReadLine();
+
+        var room = new Room
+        {
+            Name = name,
+            Description = description
+        };
+
+        _context.Rooms.Add(room);
+        _context.SaveChanges();
+
+        Console.WriteLine($"Room '{name}' added to the game.");
+    }
+    public void Add_A_Character() //Not sure if this is correct, but maybe it is??? Look into this some more.  
+    {
+        Console.Write("Enter character name: ");
+        var name = Console.ReadLine();
+
+        Console.Write("Enter character level: ");
+        var level = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter room ID for the character: ");
+        var roomId = int.Parse(Console.ReadLine());
+
+        var character = new Character
+        {
+            Name = name,
+            Level = level,
+            RoomId = roomId
+        };
+
+        _context.Characters.Add(character);
+        _context.SaveChanges();
+
+        Console.WriteLine($"Character '{name}' added.");
+    }
+
+    public void FindCharacter(string characterName) //Hmmmm....can't seem to run this after this was written.  Look into why it's not running.
+    {
+        Console.Write("Enter character name to search: ");
+        var name = Console.ReadLine();
+
+        var character = _context.Characters.FirstOrDefault(c => c.Name == characterName); // Maybe try something different????
+
+        if (character != null)
+        {
+            Console.WriteLine($"Character Found: {character.Name}, {character.Level}");
+        }
+        else
+        {
+            Console.WriteLine("Cannot find Character.");
+        }
+    }
+
 }
